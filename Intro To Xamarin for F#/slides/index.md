@@ -1,8 +1,9 @@
 - title : Build a Xamarin Forms App with F#, with Sam Williams
 - description : mobile apps, xamarin froms and lots of F#
 - author : Sam Williams
-- theme : night
+- theme : league
 - transition : default
+
 
 ***
 ### Building Xamarin Forms apps with F#
@@ -13,18 +14,19 @@ Twitter: @willsam100
 Company: EROAD - Mobile Developer
 
 <small>All opinions are my own</small>
+' default, simple, sky, beige, serif, solarized, blood, moon, night, black, league or white).
 
 ***
 ### What I'll cover
 
 - The current status of Mobile
 - How Xamarin Forms works
-- F# and Xamarin 
+- F# and Xamarin Forms
 - Functional F# with Xamarin
 - Some challenges with F#, .NET and mobile
 
 ***
-### Real quick re-cap of Mobile
+### Quick re-cap of Mobile
 
 - Android iOS, Windows
 - Generally very similar
@@ -34,6 +36,13 @@ Company: EROAD - Mobile Developer
     - Android: Button, Fragments/Activites
 - Different languages: Objective-C, swift, Java (Scala)
 
+' It's a compilicated place
+' Scala to compile on Android, apparently possible
+' Google IO: Swift is catch up to Java
+' Android might support Swift (rumor)
+' iOS 2 day turn around to get into the App Store
+' Android 2 hours to get into the Play Store
+
 ***
 ### Details about mobile
 
@@ -41,6 +50,11 @@ Company: EROAD - Mobile Developer
 - Ignoring 'hybrid/web' cross platfrom solutions
     - These are slow 
     - Limited access to device APIs
+
+' I did this full-time after leaving uni
+' The subtitles of swapping between languages can cause bugs. 
+' I created a bug, broke the app in production :(
+' Update on iOS still took 1 day, must force update other apps
 
 ***
 ### The 2 (and a half) contenders (using F#)
@@ -51,10 +65,14 @@ Company: EROAD - Mobile Developer
 
 ***
 ### I'm choosing Xamairn Forms but
+#### F# + Fable + React Native = possible
 
-- F#  + Fable can be used with React Native
+- F#  + Fable can be used with React Native 
 - It's community supported
-- Javascript is involved :(
+- JavaScript is involved (compiles to JavaScript)
+
+***
+### Overview of Xamarin
 
 ***
 ### Overview of Xamarin
@@ -77,6 +95,9 @@ Company: EROAD - Mobile Developer
 ![alt text](images/xmarin+xamarinforms.png "") 
 
 ***
+### Xamarin architecture (How it works in C#)
+
+***
 ### Recap: MVVM is the standard architecture
 
 - design pattern
@@ -94,7 +115,7 @@ Company: EROAD - Mobile Developer
 - Demo of a TODO app
 - Use F# instead of C# 
 - Will require OO 
-- The only change made is the langauge - a 'safe' change
+- The only change made is the langauge
 
 ' Demo putting the app together
 '   Show project structure and where things are
@@ -112,18 +133,31 @@ Company: EROAD - Mobile Developer
 ### Pros & Cons
 
 - Pros
-    - Great for enterprise 
+    - Great for enterprise (selling to your boss)
     - Should be able to buid anything
 - Cons
     - View models hold state
-    - Lot's of objects
-    - variables are evil (well..source of bugs)
+        - variables are evil (well..source of bugs)
+    - Communication between VMs can become complicated
+    - not very declarative/functional
+    - not leveraging all of F#'s power
+
+***
+### Xamarin with a functional/reactive architecture
 
 ***
 ### A functional architecture
 
 > Elm is a domain-specific programming language for declaratively creating web browser-based graphical user interfaces. Source: wikipedia
 ![alt text](images/elm.png "")
+
+***
+### A functional architecture
+
+- A single model to repsent all data/state in the application
+- a function(s) to update the state
+- function to render the state
+- function to handle user action
 
 ***
 ### The Elm Architecture
@@ -140,9 +174,13 @@ Company: EROAD - Mobile Developer
 #### One state to rule them all
 
 - Hold a single object with all state
-- copy the state for a each change
-- update the view on each change
-- trigger a change from the limited user action
+    - no more mutation 
+- a limited set of user actions that can be triggered
+    - easier debugging
+    - DU to represent the possible actions
+- functions return a copy of the state
+    - easier debugging
+    - no more mutation 
 
 ***
 ### Welcome Gjallarhorn
@@ -154,37 +192,57 @@ Company: EROAD - Mobile Developer
 - Ouput bindings rather than HTML/CSS/JS 
 - Continue to use Xmal for the describing the UI
 - will model the uni-directional flow 
-- Bindings + observables couples UI actions/updates 
-- UI is still written in xaml
+- Bindings + observables couples UI actions/updates
+
+***
+### Welcome Gjallarhorn
+### Modelling state 
+
+- Signals 
+    - models a value that changes over time
+    - handles notifcations of when the value is updated 
+    - immutable
+- Models 
+    - everything a signal has
+    - adds support for mutation
 
 ***
 ### A simple example 
+#### Gjallarhorn Signals
 
 - two buttons, increment - decrement
 - output label
-- uses a state object
+- very sinple model
 - uses functions to change the state
 - Gjallarhorn handles everything else
 
 ***
-### A bigger app: Real Change
+### Show me a real app!
+#### Estate Watcher
 
-- A single watchlist for all your real estate
-- Track the changes of a listing (price, title etc)
-- Two websites currently supported (scrpped)
+- An app that I have been building
+- I won't go over everything in the code
+- This is a prototype 
+
+***
+### A bigger app: Estate Watcher
+
+- Track the changes of a listing: price & title
+- A single watchlist for all your real estate listings
+- Two websites currently supported (HTML scrapping)
     - TradeMe.co.nz
     - RealEstate.co.nz
 
 ***
-### A bigger app: Real Change
+### A bigger app: Estate Watcher
 
-- Mailbox Processor to hold the state
-- Mailborx is nicely wrapped up in Gjallarhorn
-- sqlite3 db
+- Uses Gjallarhorn Async mutable to hold the single state
+- Gjallarhorn Async mutable utilizers the mailbox processor
+- sqlite3 db for permanant storage
 - network calls (HTML scraping)
 
 ***
-### A bigger app: Real Change
+### A bigger app: Estate Watcher
 
 *** 
 ### App Model
@@ -204,8 +262,9 @@ Company: EROAD - Mobile Developer
         CurrentPage: CurrentPage }
 ***
 ### App Commands
+#### Things the user/system can do
 
-    type Update =
+    type RequestCompleted =
         | FetchItems of FullListing list
         | ItemSaved
         | RefrehedItems of FullListing list
@@ -213,7 +272,7 @@ Company: EROAD - Mobile Developer
         | DeletedListing of ListingId
         | DeletedListingFailed of string
 
-    RequestAction = 
+    and RequestAction = 
         | RequstLoad
         | RequstRefresh
         | AddListingMessage of string
@@ -221,9 +280,9 @@ Company: EROAD - Mobile Developer
         | DeleteListing of ListingId
         | ToggleShowRemoved 
 
-     Msg = 
+     and Msg = 
         | RequestAction of RequestAction
-        | RequestCompleted of Update
+        | RequestCompleted of RequestCompleted
         | ChangePage of ChangePage
         | Loop
         
@@ -237,8 +296,8 @@ Company: EROAD - Mobile Developer
 
         let update (msg : Msg) (current : Model) = 
             match msg with
-            | Msg.RequestAction m -> requestAction m current
-            | Msg.RequestCompleted u -> handleUpdateItems u current
+            | Msg.RequestAction ra -> requestAction ra current
+            | Msg.RequestCompleted rc -> handleUpdateItems u current
             | Msg.ChangePage cp -> handleChangePage cp current
             | Msg.Loop -> current
 
@@ -259,6 +318,7 @@ Company: EROAD - Mobile Developer
         model |> Signal.map (fun x -> x.AddListingModel.EntryText)
         |> Binding.toView source "ListingText"
             
+        // Response stubbed for slide
         let isNotLoadingContent = model |> Signal.map (fun x -> true)
         let isOnAddListingPage = model |> Signal.map (fun x -> true)
         let canExecute = Signal.map2 (&&) isNotLoadingContent isOnAddListingPage
@@ -277,6 +337,11 @@ To the demo
 - handles notifications 
 - handles state
 - declaritive
+
+*** 
+### Moble + F# + libraries
+
+- A little note
 
 *** 
 ### Over to libraries
@@ -301,6 +366,15 @@ To the demo
     - will solve all out problems!
 - If only a few APIs don't fit ask the mobile community
     - `Bait and switch` might be able to solve this
+    
+*** 
+### Over to libraries
+
+- https://blogs.msdn.microsoft.com/dotnet/2016/09/26/introducing-net-standard/
+- use PCLs now to target mobile specifically
+- use .netstandard (1.0 - 1.6) if building a library that might be useful for mobile
+- use .net-standard 2.0 when it comes out
+    - .netstandard includes Xamarin APIs
 
 *** 
 ### Wrapping up
