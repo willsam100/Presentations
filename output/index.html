@@ -1,0 +1,726 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Build a Xamarin Forms App with F#, with Sam Williams</title>
+    <meta name="description" content="mobile apps, xamarin froms and lots of F#">
+    <meta name="author" content="Sam Williams">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="//code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="//code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/league.css" id="theme">
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/style.css" />
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/deedle.css" />
+    <link type="text/css" rel="stylesheet" href="css/custom.css" />
+    <script src="fsharp.formatting/styles/tips.js" type="text/javascript"></script>
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="css/fsreveal.css">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script language="javascript" type="text/javascript">
+        function init()
+        {
+            websocket = new WebSocket("ws://"+window.location.host+"/websocket");
+            websocket.onmessage = function(evt) { location.reload(); };
+        }
+        window.addEventListener("load", init, false);
+    </script>
+</head>
+<body>
+    <div class="reveal">
+        <div class="tip" id="fs1">type AddListingModel =<br />&#160;&#160;{OutputMessage: string;<br />&#160;&#160;&#160;ItemAdded: bool;<br />&#160;&#160;&#160;IsValidatingItem: bool;<br />&#160;&#160;&#160;EntryText: string;}<br /><br />Full name: index.AddListingModel</div>
+<div class="tip" id="fs2">AddListingModel.OutputMessage: string</div>
+<div class="tip" id="fs3">Multiple items<br />val string : value:&#39;T -&gt; string<br /><br />Full name: Microsoft.FSharp.Core.Operators.string<br /><br />--------------------<br />type string = System.String<br /><br />Full name: Microsoft.FSharp.Core.string</div>
+<div class="tip" id="fs4">AddListingModel.ItemAdded: bool</div>
+<div class="tip" id="fs5">type bool = System.Boolean<br /><br />Full name: Microsoft.FSharp.Core.bool</div>
+<div class="tip" id="fs6">AddListingModel.IsValidatingItem: bool</div>
+<div class="tip" id="fs7">AddListingModel.EntryText: string</div>
+<div class="tip" id="fs8">type CurrentPage =<br />&#160;&#160;| ListingsPage<br />&#160;&#160;| AddListingPage<br />&#160;&#160;| ListingChangesPage<br />&#160;&#160;| About<br /><br />Full name: index.CurrentPage</div>
+<div class="tip" id="fs9">union case CurrentPage.ListingsPage: CurrentPage</div>
+<div class="tip" id="fs10">union case CurrentPage.AddListingPage: CurrentPage</div>
+<div class="tip" id="fs11">union case CurrentPage.ListingChangesPage: CurrentPage</div>
+<div class="tip" id="fs12">union case CurrentPage.About: CurrentPage</div>
+<div class="tip" id="fs13">type Model =<br />&#160;&#160;{Items: obj;<br />&#160;&#160;&#160;ShowRemovedListings: bool;<br />&#160;&#160;&#160;IsRefreshing: bool;<br />&#160;&#160;&#160;AddListingModel: AddListingModel option;<br />&#160;&#160;&#160;ListingChanges: obj;<br />&#160;&#160;&#160;CurrentPage: CurrentPage;}<br /><br />Full name: index.Model</div>
+<div class="tip" id="fs14">Model.Items: obj</div>
+<div class="tip" id="fs15">type &#39;T list = List&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Collections.list&lt;_&gt;</div>
+<div class="tip" id="fs16">Model.ShowRemovedListings: bool</div>
+<div class="tip" id="fs17">Model.IsRefreshing: bool</div>
+<div class="tip" id="fs18">Multiple items<br />Model.AddListingModel: AddListingModel option<br /><br />--------------------<br />type AddListingModel =<br />&#160;&#160;{OutputMessage: string;<br />&#160;&#160;&#160;ItemAdded: bool;<br />&#160;&#160;&#160;IsValidatingItem: bool;<br />&#160;&#160;&#160;EntryText: string;}<br /><br />Full name: index.AddListingModel</div>
+<div class="tip" id="fs19">type &#39;T option = Option&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Core.option&lt;_&gt;</div>
+<div class="tip" id="fs20">Model.ListingChanges: obj</div>
+<div class="tip" id="fs21">Multiple items<br />Model.CurrentPage: CurrentPage<br /><br />--------------------<br />type CurrentPage =<br />&#160;&#160;| ListingsPage<br />&#160;&#160;| AddListingPage<br />&#160;&#160;| ListingChangesPage<br />&#160;&#160;| About<br /><br />Full name: index.CurrentPage</div>
+<div class="tip" id="fs22">Multiple items<br />union case Msg.RequestCompleted: RequestCompleted -&gt; Msg<br /><br />--------------------<br />type RequestCompleted =<br />&#160;&#160;| FetchItems of obj<br />&#160;&#160;| ItemSaved<br />&#160;&#160;| RefrehedItems of obj<br />&#160;&#160;| ItemValidated of obj<br />&#160;&#160;| DeletedListing of obj<br />&#160;&#160;| DeletedListingFailed of string<br /><br />Full name: index.RequestCompleted</div>
+<div class="tip" id="fs23">union case RequestCompleted.FetchItems: obj -&gt; RequestCompleted</div>
+<div class="tip" id="fs24">union case RequestCompleted.ItemSaved: RequestCompleted</div>
+<div class="tip" id="fs25">union case RequestCompleted.RefrehedItems: obj -&gt; RequestCompleted</div>
+<div class="tip" id="fs26">union case RequestCompleted.ItemValidated: obj -&gt; RequestCompleted</div>
+<div class="tip" id="fs27">union case RequestCompleted.DeletedListing: obj -&gt; RequestCompleted</div>
+<div class="tip" id="fs28">union case RequestCompleted.DeletedListingFailed: string -&gt; RequestCompleted</div>
+<div class="tip" id="fs29">type RequestAction =<br />&#160;&#160;| RequstLoad<br />&#160;&#160;| RequstRefresh<br />&#160;&#160;| AddListingMessage of string<br />&#160;&#160;| SetListingDetail of (obj * obj)<br />&#160;&#160;| DeleteListing of obj<br />&#160;&#160;| ToggleShowRemoved<br /><br />Full name: index.RequestAction</div>
+<div class="tip" id="fs30">union case RequestAction.RequstLoad: RequestAction</div>
+<div class="tip" id="fs31">union case RequestAction.RequstRefresh: RequestAction</div>
+<div class="tip" id="fs32">union case RequestAction.AddListingMessage: string -&gt; RequestAction</div>
+<div class="tip" id="fs33">union case RequestAction.SetListingDetail: (obj * obj) -&gt; RequestAction</div>
+<div class="tip" id="fs34">union case RequestAction.DeleteListing: obj -&gt; RequestAction</div>
+<div class="tip" id="fs35">union case RequestAction.ToggleShowRemoved: RequestAction</div>
+<div class="tip" id="fs36">type Msg =<br />&#160;&#160;| RequestAction of RequestAction<br />&#160;&#160;| RequestCompleted of RequestCompleted<br />&#160;&#160;| ChangePage of obj<br />&#160;&#160;| Loop<br /><br />Full name: index.Msg</div>
+<div class="tip" id="fs37">Multiple items<br />union case Msg.RequestAction: RequestAction -&gt; Msg<br /><br />--------------------<br />type RequestAction =<br />&#160;&#160;| RequstLoad<br />&#160;&#160;| RequstRefresh<br />&#160;&#160;| AddListingMessage of string<br />&#160;&#160;| SetListingDetail of (obj * obj)<br />&#160;&#160;| DeleteListing of obj<br />&#160;&#160;| ToggleShowRemoved<br /><br />Full name: index.RequestAction</div>
+<div class="tip" id="fs38">union case Msg.ChangePage: obj -&gt; Msg</div>
+<div class="tip" id="fs39">union case Msg.Loop: Msg</div>
+<div class="tip" id="fs40">Multiple items<br />type StateManagement =<br />&#160;&#160;new : navPage:obj * loadItems:(unit -&gt; unit) * saveListing:obj * validateListing:obj * refreshListings:obj * deleteListing:obj -&gt; StateManagement<br /><br />Full name: index.StateManagement<br /><br />--------------------<br />new : navPage:obj * loadItems:(unit -&gt; unit) * saveListing:obj * validateListing:obj * refreshListings:obj * deleteListing:obj -&gt; StateManagement</div>
+<div class="tip" id="fs41">val navPage : obj</div>
+<div class="tip" id="fs42">val loadItems : (unit -&gt; unit)</div>
+<div class="tip" id="fs43">type unit = Unit<br /><br />Full name: Microsoft.FSharp.Core.unit</div>
+<div class="tip" id="fs44">val saveListing : obj</div>
+<div class="tip" id="fs45">val validateListing : obj</div>
+<div class="tip" id="fs46">val refreshListings : obj</div>
+<div class="tip" id="fs47">val deleteListing : obj</div>
+<div class="tip" id="fs48">val update : (Msg -&gt; Model -&gt; Model)</div>
+<div class="tip" id="fs49">val msg : Msg</div>
+<div class="tip" id="fs50">val current : Model</div>
+<div class="tip" id="fs51">union case Msg.RequestAction: RequestAction -&gt; Msg</div>
+<div class="tip" id="fs52">val ra : RequestAction</div>
+<div class="tip" id="fs53">union case Msg.RequestCompleted: RequestCompleted -&gt; Msg</div>
+<div class="tip" id="fs54">val rc : RequestCompleted</div>
+<div class="tip" id="fs55">val cp : obj</div>
+<div class="tip" id="fs56">val initialModel : Model</div>
+<div class="tip" id="fs57">val state : obj</div>
+<div class="tip" id="fs58">val ignore : value:&#39;T -&gt; unit<br /><br />Full name: Microsoft.FSharp.Core.Operators.ignore</div>
+
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section >
+<h3>Building Xamarin Forms apps with F#</h3>
+<h4>by Sam Williams</h4>
+<p>Twitter: @willsam100</p>
+<p>Company: EROAD - Mobile Developer</p>
+<small>All opinions are my own</small>
+<aside class="notes">
+default, simple, sky, beige, serif, solarized, blood, moon, night, black, league or white).<br/>
+</aside>
+</section>
+<section >
+<h3>What I'll cover</h3>
+<ul>
+<li>The current status of Mobile</li>
+<li>How Xamarin Forms works</li>
+<li>F# and Xamarin Forms</li>
+<li>Functional F# with Xamarin</li>
+<li>Some challenges with F#, .NET and mobile</li>
+</ul>
+</section>
+<section >
+<h3>Quick re-cap of Mobile</h3>
+<ul>
+<li>Android iOS, Windows</li>
+<li>
+Generally very similar
+<ul>
+<li>pages, buttons, camera, etc</li>
+</ul>
+</li>
+<li>
+Technically rather different
+<ul>
+<li>iOS: UIButton, UIViewController</li>
+<li>Android: Button, Fragments/Activites</li>
+</ul>
+</li>
+<li>Different languages: Objective-C, swift, Java (Scala)</li>
+</ul>
+<aside class="notes">
+It's a compilicated place<br/>
+Scala to compile on Android, apparently possible<br/>
+Google IO: Swift is catch up to Java<br/>
+Android might support Swift (rumor)<br/>
+iOS 2 day turn around to get into the App Store<br/>
+Android 2 hours to get into the Play Store<br/>
+</aside>
+</section>
+<section >
+<h3>Details about mobile</h3>
+<ul>
+<li>Building multiple versions of the same app <strike>is expensive</strike> sucks</li>
+<li>
+Ignoring 'hybrid/web' cross platfrom solutions
+<ul>
+<li>These are slow</li>
+<li>Limited access to device APIs</li>
+</ul>
+</li>
+</ul>
+<aside class="notes">
+I did this full-time after leaving uni<br/>
+The subtitles of swapping between languages can cause bugs. <br/>
+I created a bug, broke the app in production :(<br/>
+Update on iOS still took 1 day, must force update other apps<br/>
+</aside>
+</section>
+<section >
+<h3>The 2 (and a half) contenders (using F#)</h3>
+<ul>
+<li>React Native</li>
+<li>Xamarin</li>
+<li>Xamarin Forms</li>
+</ul>
+</section>
+<section >
+<h3>I'm choosing Xamairn Forms but</h3>
+<h4>F# + Fable + React Native = possible</h4>
+<ul>
+<li>F#  + Fable can be used with React Native</li>
+<li>It's community supported</li>
+<li>JavaScript is involved (compiles to JavaScript)</li>
+</ul>
+</section>
+<section >
+<h3>Overview of Xamarin</h3>
+</section>
+<section >
+<h3>Overview of Xamarin</h3>
+<ul>
+<li>Mono allows .NET code to be executed on the device</li>
+<li>Xamarin have ported all the native device APIs to .NET</li>
+<li>write the core of the app in a shared layer</li>
+<li>(re) write only the UI for each platform</li>
+</ul>
+</section>
+<section >
+<h3>Overview of Xamarin Forms</h3>
+<ul>
+<li>Share the UI layer accross platforms</li>
+<li>Write each screen using abstract UI elements</li>
+<li>Can use xaml (subset of WPF) to describe UI elements</li>
+<li>UI elements are compiled to platform object ie Button -&gt; UIButton</li>
+</ul>
+</section>
+<section >
+<p><img src="images/xmarin+xamarinforms.png" alt="alt text" title="" /></p>
+</section>
+<section >
+<h3>Xamarin architecture (How it works in C#)</h3>
+</section>
+<section >
+<h3>Recap: MVVM is the standard architecture</h3>
+<ul>
+<li>design pattern</li>
+<li>model -&gt; view -&gt; ViewModel</li>
+<li>Allows for unit testing of the view</li>
+</ul>
+</section>
+<section >
+<h3>MVVM is the standard architecture</h3>
+<p><img src="images/mvvm-pattern.jpg" alt="alt text" title="" /></p>
+</section>
+<section >
+<h3>Where's the F#</h3>
+<ul>
+<li>Demo of a TODO app</li>
+<li>Use F# instead of C#</li>
+<li>Will require OO</li>
+<li>The only change made is the langauge</li>
+</ul>
+<aside class="notes">
+Demo putting the app together<br/>
+  Show project structure and where things are<br/>
+  Add in view model <br/>
+  highlight F# helping with types<br/>
+  update unit tests (Version 3 is better)<br/>
+  Possible to use Property based testing<br/>
+  - Not the best support with Xamarin Studio. <br/>
+  - NUnit is the only stable (ish) framework<br/>
+</aside>
+<aside class="notes">
+Unit tests <br/>
+Replace the core with Functional style<br/>
+</aside>
+</section>
+<section >
+<h3>Pros &amp; Cons</h3>
+<ul>
+<li>
+Pros
+<ul>
+<li>Great for enterprise (selling to your boss)</li>
+<li>Should be able to buid anything</li>
+</ul>
+</li>
+<li>
+Cons
+<ul>
+<li>
+View models hold state
+<ul>
+<li>variables are evil (well..source of bugs)</li>
+</ul>
+</li>
+<li>Communication between VMs can become complicated</li>
+<li>not very declarative/functional</li>
+<li>not leveraging all of F#'s power</li>
+</ul>
+</li>
+</ul>
+</section>
+<section >
+<h3>Xamarin with a functional/reactive architecture</h3>
+</section>
+<section >
+<h3>A functional architecture</h3>
+<blockquote>
+<p>Elm is a domain-specific programming language for declaratively creating web browser-based graphical user interfaces. Source: wikipedia
+<img src="images/elm.png" alt="alt text" title="" /></p>
+</blockquote>
+</section>
+<section >
+<h3>A functional architecture</h3>
+<ul>
+<li>A single model to repsent all data/state in the application</li>
+<li>a function(s) to update the state</li>
+<li>function to render the state</li>
+<li>function to handle user action</li>
+</ul>
+</section>
+<section >
+<h3>The Elm Architecture</h3>
+<h4>It's all about flow</h4>
+<img src="images/elm-data-flow.jpg"  width="700" height="500" alt="Computer Hope">
+</section>
+<section >
+<h3>The Elm Architecture</h3>
+<h4>Applied to Xamarin Forms</h4>
+</section>
+<section >
+<h3>The Elm Architecture</h3>
+<h4>One state to rule them all</h4>
+<ul>
+<li>
+Hold a single object with all state
+<ul>
+<li>no more mutation</li>
+</ul>
+</li>
+<li>
+a limited set of user actions that can be triggered
+<ul>
+<li>easier debugging</li>
+<li>DU to represent the possible actions</li>
+</ul>
+</li>
+<li>
+functions return a copy of the state
+<ul>
+<li>easier debugging</li>
+<li>no more mutation</li>
+</ul>
+</li>
+</ul>
+</section>
+<section >
+<h3>Welcome Gjallarhorn</h3>
+<h3>Much better, but how?</h3>
+<ul>
+<li>
+Gjallarhorn is a framework
+<ul>
+<li>supports WPF</li>
+<li>Supports Xamarin Forms</li>
+</ul>
+</li>
+<li>Ouput bindings rather than HTML/CSS/JS</li>
+<li>Continue to use Xmal for the describing the UI</li>
+<li>will model the uni-directional flow</li>
+<li>Bindings + observables couples UI actions/updates</li>
+</ul>
+</section>
+<section >
+<h3>Welcome Gjallarhorn</h3>
+<h3>Modelling state</h3>
+<ul>
+<li>
+Signals
+<ul>
+<li>models a value that changes over time</li>
+<li>handles notifcations of when the value is updated</li>
+<li>immutable</li>
+</ul>
+</li>
+<li>
+Models
+<ul>
+<li>everything a signal has</li>
+<li>adds support for mutation</li>
+</ul>
+</li>
+</ul>
+</section>
+<section >
+<h3>A simple example</h3>
+<h4>Gjallarhorn Signals</h4>
+<ul>
+<li>two buttons, increment - decrement</li>
+<li>output label</li>
+<li>very sinple model</li>
+<li>uses functions to change the state</li>
+<li>Gjallarhorn handles everything else</li>
+</ul>
+</section>
+<section >
+<h3>Show me a real app!</h3>
+<h4>Estate Watcher</h4>
+<ul>
+<li>An app that I have been building</li>
+<li>I won't go over everything in the code</li>
+<li>This is a prototype</li>
+</ul>
+</section>
+<section >
+<h3>A bigger app: Estate Watcher</h3>
+<ul>
+<li>Track the changes of a listing: price &amp; title</li>
+<li>A single watchlist for all your real estate listings</li>
+<li>
+Two websites currently supported (HTML scrapping)
+<ul>
+<li>TradeMe.co.nz</li>
+<li>RealEstate.co.nz</li>
+</ul>
+</li>
+</ul>
+</section>
+<section >
+<h3>A bigger app: Estate Watcher</h3>
+<ul>
+<li>Uses Gjallarhorn Async mutable to hold the single state</li>
+<li>Gjallarhorn Async mutable utilizers the mailbox processor</li>
+<li>sqlite3 db for permanant storage</li>
+<li>network calls (HTML scraping)</li>
+</ul>
+</section>
+<section >
+<h3>A bigger app: Estate Watcher</h3>
+</section>
+<section >
+<h3>App Model</h3>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="t">AddListingModel</span> <span class="o">=</span> {
+    <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">OutputMessage</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="t">string</span>
+    <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="i">ItemAdded</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs5', 5)" onmouseover="showTip(event, 'fs5', 5)" class="t">bool</span>
+    <span onmouseout="hideTip(event, 'fs6', 6)" onmouseover="showTip(event, 'fs6', 6)" class="i">IsValidatingItem</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs5', 7)" onmouseover="showTip(event, 'fs5', 7)" class="t">bool</span>
+    <span onmouseout="hideTip(event, 'fs7', 8)" onmouseover="showTip(event, 'fs7', 8)" class="i">EntryText</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs3', 9)" onmouseover="showTip(event, 'fs3', 9)" class="t">string</span> }
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs8', 10)" onmouseover="showTip(event, 'fs8', 10)" class="t">CurrentPage</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 11)" onmouseover="showTip(event, 'fs9', 11)" class="p">ListingsPage</span> | <span onmouseout="hideTip(event, 'fs10', 12)" onmouseover="showTip(event, 'fs10', 12)" class="p">AddListingPage</span> | <span onmouseout="hideTip(event, 'fs11', 13)" onmouseover="showTip(event, 'fs11', 13)" class="p">ListingChangesPage</span> | <span onmouseout="hideTip(event, 'fs12', 14)" onmouseover="showTip(event, 'fs12', 14)" class="p">About</span>
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs13', 15)" onmouseover="showTip(event, 'fs13', 15)" class="t">Model</span> <span class="o">=</span> { 
+    <span onmouseout="hideTip(event, 'fs14', 16)" onmouseover="showTip(event, 'fs14', 16)" class="i">Items</span> <span class="o">:</span> <span class="i">FullListing</span> <span onmouseout="hideTip(event, 'fs15', 17)" onmouseover="showTip(event, 'fs15', 17)" class="t">list</span> 
+    <span onmouseout="hideTip(event, 'fs16', 18)" onmouseover="showTip(event, 'fs16', 18)" class="i">ShowRemovedListings</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs5', 19)" onmouseover="showTip(event, 'fs5', 19)" class="t">bool</span>
+    <span onmouseout="hideTip(event, 'fs17', 20)" onmouseover="showTip(event, 'fs17', 20)" class="i">IsRefreshing</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs5', 21)" onmouseover="showTip(event, 'fs5', 21)" class="t">bool</span>
+    <span onmouseout="hideTip(event, 'fs18', 22)" onmouseover="showTip(event, 'fs18', 22)" class="i">AddListingModel</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs18', 23)" onmouseover="showTip(event, 'fs18', 23)" class="t">AddListingModel</span> <span onmouseout="hideTip(event, 'fs19', 24)" onmouseover="showTip(event, 'fs19', 24)" class="t">option</span>
+    <span onmouseout="hideTip(event, 'fs20', 25)" onmouseover="showTip(event, 'fs20', 25)" class="i">ListingChanges</span><span class="o">:</span> <span class="i">ListingId</span> <span onmouseout="hideTip(event, 'fs19', 26)" onmouseover="showTip(event, 'fs19', 26)" class="t">option</span>
+    <span onmouseout="hideTip(event, 'fs21', 27)" onmouseover="showTip(event, 'fs21', 27)" class="i">CurrentPage</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs21', 28)" onmouseover="showTip(event, 'fs21', 28)" class="t">CurrentPage</span> }
+</code></pre></td>
+</tr>
+</table>
+</section>
+<section >
+<h3>App Commands</h3>
+<h4>Things the user/system can do</h4>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs22', 29)" onmouseover="showTip(event, 'fs22', 29)" class="t">RequestCompleted</span> <span class="o">=</span>
+    | <span onmouseout="hideTip(event, 'fs23', 30)" onmouseover="showTip(event, 'fs23', 30)" class="p">FetchItems</span> <span class="k">of</span> <span class="i">FullListing</span> <span onmouseout="hideTip(event, 'fs15', 31)" onmouseover="showTip(event, 'fs15', 31)" class="t">list</span>
+    | <span onmouseout="hideTip(event, 'fs24', 32)" onmouseover="showTip(event, 'fs24', 32)" class="p">ItemSaved</span>
+    | <span onmouseout="hideTip(event, 'fs25', 33)" onmouseover="showTip(event, 'fs25', 33)" class="p">RefrehedItems</span> <span class="k">of</span> <span class="i">FullListing</span> <span onmouseout="hideTip(event, 'fs15', 34)" onmouseover="showTip(event, 'fs15', 34)" class="t">list</span>
+    | <span onmouseout="hideTip(event, 'fs26', 35)" onmouseover="showTip(event, 'fs26', 35)" class="p">ItemValidated</span> <span class="k">of</span> <span class="i">FullListing</span> <span onmouseout="hideTip(event, 'fs19', 36)" onmouseover="showTip(event, 'fs19', 36)" class="t">option</span>
+    | <span onmouseout="hideTip(event, 'fs27', 37)" onmouseover="showTip(event, 'fs27', 37)" class="p">DeletedListing</span> <span class="k">of</span> <span class="i">ListingId</span>
+    | <span onmouseout="hideTip(event, 'fs28', 38)" onmouseover="showTip(event, 'fs28', 38)" class="p">DeletedListingFailed</span> <span class="k">of</span> <span onmouseout="hideTip(event, 'fs3', 39)" onmouseover="showTip(event, 'fs3', 39)" class="t">string</span>
+
+<span class="k">and</span> <span onmouseout="hideTip(event, 'fs29', 40)" onmouseover="showTip(event, 'fs29', 40)" class="t">RequestAction</span> <span class="o">=</span> 
+    | <span onmouseout="hideTip(event, 'fs30', 41)" onmouseover="showTip(event, 'fs30', 41)" class="p">RequstLoad</span>
+    | <span onmouseout="hideTip(event, 'fs31', 42)" onmouseover="showTip(event, 'fs31', 42)" class="p">RequstRefresh</span>
+    | <span onmouseout="hideTip(event, 'fs32', 43)" onmouseover="showTip(event, 'fs32', 43)" class="p">AddListingMessage</span> <span class="k">of</span> <span onmouseout="hideTip(event, 'fs3', 44)" onmouseover="showTip(event, 'fs3', 44)" class="t">string</span>
+    | <span onmouseout="hideTip(event, 'fs33', 45)" onmouseover="showTip(event, 'fs33', 45)" class="p">SetListingDetail</span> <span class="k">of</span> (<span class="i">NavigationDetails</span> <span class="o">*</span> <span class="i">ListingId</span>)
+    | <span onmouseout="hideTip(event, 'fs34', 46)" onmouseover="showTip(event, 'fs34', 46)" class="p">DeleteListing</span> <span class="k">of</span> <span class="i">ListingId</span>
+    | <span onmouseout="hideTip(event, 'fs35', 47)" onmouseover="showTip(event, 'fs35', 47)" class="p">ToggleShowRemoved</span> 
+
+ <span class="k">and</span> <span onmouseout="hideTip(event, 'fs36', 48)" onmouseover="showTip(event, 'fs36', 48)" class="t">Msg</span> <span class="o">=</span> 
+    | <span onmouseout="hideTip(event, 'fs37', 49)" onmouseover="showTip(event, 'fs37', 49)" class="p">RequestAction</span> <span class="k">of</span> <span onmouseout="hideTip(event, 'fs37', 50)" onmouseover="showTip(event, 'fs37', 50)" class="t">RequestAction</span>
+    | <span onmouseout="hideTip(event, 'fs22', 51)" onmouseover="showTip(event, 'fs22', 51)" class="p">RequestCompleted</span> <span class="k">of</span> <span onmouseout="hideTip(event, 'fs22', 52)" onmouseover="showTip(event, 'fs22', 52)" class="t">RequestCompleted</span>
+    | <span onmouseout="hideTip(event, 'fs38', 53)" onmouseover="showTip(event, 'fs38', 53)" class="p">ChangePage</span> <span class="k">of</span> <span onmouseout="hideTip(event, 'fs38', 54)" onmouseover="showTip(event, 'fs38', 54)" class="i">ChangePage</span>
+    | <span onmouseout="hideTip(event, 'fs39', 55)" onmouseover="showTip(event, 'fs39', 55)" class="p">Loop</span>
+</code></pre></td>
+</tr>
+</table>
+</section>
+<section >
+<h3>State/update function</h3>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs40', 56)" onmouseover="showTip(event, 'fs40', 56)" class="t">StateManagement</span> (<span onmouseout="hideTip(event, 'fs41', 57)" onmouseover="showTip(event, 'fs41', 57)" class="i">navPage</span><span class="o">:</span> <span class="i">NavigationPage</span>, <span onmouseout="hideTip(event, 'fs42', 58)" onmouseover="showTip(event, 'fs42', 58)" class="f">loadItems</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs43', 59)" onmouseover="showTip(event, 'fs43', 59)" class="t">unit</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs43', 60)" onmouseover="showTip(event, 'fs43', 60)" class="t">unit</span>, 
+    <span onmouseout="hideTip(event, 'fs44', 61)" onmouseover="showTip(event, 'fs44', 61)" class="i">saveListing</span>, <span onmouseout="hideTip(event, 'fs45', 62)" onmouseover="showTip(event, 'fs45', 62)" class="i">validateListing</span>, <span onmouseout="hideTip(event, 'fs46', 63)" onmouseover="showTip(event, 'fs46', 63)" class="i">refreshListings</span>, <span onmouseout="hideTip(event, 'fs47', 64)" onmouseover="showTip(event, 'fs47', 64)" class="i">deleteListing</span>) <span class="o">=</span>
+
+    <span class="c">// .. rest of helper functions here</span>
+
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs48', 65)" onmouseover="showTip(event, 'fs48', 65)" class="f">update</span> (<span onmouseout="hideTip(event, 'fs49', 66)" onmouseover="showTip(event, 'fs49', 66)" class="i">msg</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs36', 67)" onmouseover="showTip(event, 'fs36', 67)" class="t">Msg</span>) (<span onmouseout="hideTip(event, 'fs50', 68)" onmouseover="showTip(event, 'fs50', 68)" class="i">current</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs13', 69)" onmouseover="showTip(event, 'fs13', 69)" class="t">Model</span>) <span class="o">=</span> 
+        <span class="k">match</span> <span onmouseout="hideTip(event, 'fs49', 70)" onmouseover="showTip(event, 'fs49', 70)" class="i">msg</span> <span class="k">with</span>
+        | <span onmouseout="hideTip(event, 'fs36', 71)" onmouseover="showTip(event, 'fs36', 71)" class="t">Msg</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs51', 72)" onmouseover="showTip(event, 'fs51', 72)" class="p">RequestAction</span> <span onmouseout="hideTip(event, 'fs52', 73)" onmouseover="showTip(event, 'fs52', 73)" class="i">ra</span> <span class="k">-&gt;</span> <span class="i">requestAction</span> <span onmouseout="hideTip(event, 'fs52', 74)" onmouseover="showTip(event, 'fs52', 74)" class="i">ra</span> <span onmouseout="hideTip(event, 'fs50', 75)" onmouseover="showTip(event, 'fs50', 75)" class="i">current</span>
+        | <span onmouseout="hideTip(event, 'fs36', 76)" onmouseover="showTip(event, 'fs36', 76)" class="t">Msg</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs53', 77)" onmouseover="showTip(event, 'fs53', 77)" class="p">RequestCompleted</span> <span onmouseout="hideTip(event, 'fs54', 78)" onmouseover="showTip(event, 'fs54', 78)" class="i">rc</span> <span class="k">-&gt;</span> <span class="i">handleUpdateItems</span> <span class="i">u</span> <span onmouseout="hideTip(event, 'fs50', 79)" onmouseover="showTip(event, 'fs50', 79)" class="i">current</span>
+        | <span onmouseout="hideTip(event, 'fs36', 80)" onmouseover="showTip(event, 'fs36', 80)" class="t">Msg</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs38', 81)" onmouseover="showTip(event, 'fs38', 81)" class="p">ChangePage</span> <span onmouseout="hideTip(event, 'fs55', 82)" onmouseover="showTip(event, 'fs55', 82)" class="i">cp</span> <span class="k">-&gt;</span> <span class="i">handleChangePage</span> <span onmouseout="hideTip(event, 'fs55', 83)" onmouseover="showTip(event, 'fs55', 83)" class="i">cp</span> <span onmouseout="hideTip(event, 'fs50', 84)" onmouseover="showTip(event, 'fs50', 84)" class="i">current</span>
+        | <span onmouseout="hideTip(event, 'fs36', 85)" onmouseover="showTip(event, 'fs36', 85)" class="t">Msg</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs39', 86)" onmouseover="showTip(event, 'fs39', 86)" class="p">Loop</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs50', 87)" onmouseover="showTip(event, 'fs50', 87)" class="i">current</span>
+
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs56', 88)" onmouseover="showTip(event, 'fs56', 88)" class="i">initialModel</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs13', 89)" onmouseover="showTip(event, 'fs13', 89)" class="t">Model</span> <span class="o">=</span> <span class="c">// default starting value  </span>
+
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs57', 90)" onmouseover="showTip(event, 'fs57', 90)" class="i">state</span> <span class="o">=</span> <span class="k">new</span> <span class="i">AsyncMutable</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs13', 91)" onmouseover="showTip(event, 'fs13', 91)" class="i">Model</span><span class="o">&gt;</span>(<span class="i">initialModel</span>)
+
+    <span class="k">member</span> <span class="i">__</span><span class="o">.</span><span class="i">Update</span> <span class="i">msg</span> <span class="o">=</span> 
+        <span class="i">update</span> <span class="i">msg</span> <span class="o">|&gt;</span> <span class="i">state</span><span class="o">.</span><span class="i">Update</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs58', 92)" onmouseover="showTip(event, 'fs58', 92)" class="i">ignore</span>
+</code></pre></td>
+</tr>
+</table>
+</section>
+<section >
+<h3>Add a listing page</h3>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="i">addListing</span> <span class="i">source</span> (<span class="i">model</span><span class="o">:</span> <span class="i">ISignal</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs13', 93)" onmouseover="showTip(event, 'fs13', 93)" class="i">Model</span><span class="o">&gt;</span>) <span class="o">=</span> 
+    <span class="i">model</span> <span class="o">|&gt;</span> <span class="i">Signal</span><span class="o">.</span><span class="i">map</span> (<span class="k">fun</span> <span class="i">x</span> <span class="k">-&gt;</span>  <span class="i">x</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs1', 94)" onmouseover="showTip(event, 'fs1', 94)" class="i">AddListingModel</span><span class="o">.</span><span class="i">OutputMessage</span>)
+    <span class="o">|&gt;</span> <span class="i">Binding</span><span class="o">.</span><span class="i">toView</span> <span class="i">source</span> <span class="s">&quot;Output&quot;</span>
+    
+    <span class="i">model</span> <span class="o">|&gt;</span> <span class="i">Signal</span><span class="o">.</span><span class="i">map</span> (<span class="k">fun</span> <span class="i">x</span> <span class="k">-&gt;</span> <span class="i">x</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs1', 95)" onmouseover="showTip(event, 'fs1', 95)" class="i">AddListingModel</span><span class="o">.</span><span class="i">EntryText</span>)
+    <span class="o">|&gt;</span> <span class="i">Binding</span><span class="o">.</span><span class="i">toView</span> <span class="i">source</span> <span class="s">&quot;ListingText&quot;</span>
+        
+    <span class="c">// Response stubbed for slide</span>
+    <span class="k">let</span> <span class="i">isNotLoadingContent</span> <span class="o">=</span> <span class="i">model</span> <span class="o">|&gt;</span> <span class="i">Signal</span><span class="o">.</span><span class="i">map</span> (<span class="k">fun</span> <span class="i">x</span> <span class="k">-&gt;</span> <span class="k">true</span>)
+    <span class="k">let</span> <span class="i">isOnAddListingPage</span> <span class="o">=</span> <span class="i">model</span> <span class="o">|&gt;</span> <span class="i">Signal</span><span class="o">.</span><span class="i">map</span> (<span class="k">fun</span> <span class="i">x</span> <span class="k">-&gt;</span> <span class="k">true</span>)
+    <span class="k">let</span> <span class="i">canExecute</span> <span class="o">=</span> <span class="i">Signal</span><span class="o">.</span><span class="i">map2</span> (<span class="o">&amp;&amp;</span>) <span class="i">isNotLoadingContent</span> <span class="i">isOnAddListingPage</span>
+
+    [<span class="i">source</span> <span class="o">|&gt;</span> <span class="i">Binding</span><span class="o">.</span><span class="i">createMessageParamChecked</span> <span class="s">&quot;TrackCommand&quot;</span> 
+        <span class="i">canExecute</span> (<span class="k">fun</span> <span class="i">entry</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs37', 96)" onmouseover="showTip(event, 'fs37', 96)" class="i">RequestAction</span> <span class="o">&lt;|</span> <span onmouseout="hideTip(event, 'fs32', 97)" onmouseover="showTip(event, 'fs32', 97)" class="i">AddListingMessage</span> <span class="i">entry</span>)]
+</code></pre></td>
+</tr>
+</table>
+</section>
+<section >
+<h3>A look at the code + Demo</h3>
+<p>To the demo</p>
+</section>
+<section >
+<h3>Gjallarhorn</h3>
+<ul>
+<li>handles notifications</li>
+<li>handles state</li>
+<li>declaritive</li>
+</ul>
+</section>
+<section >
+<h3>Moble + F# + libraries</h3>
+<ul>
+<li>A little note</li>
+</ul>
+</section>
+<section >
+<h3>Over to libraries</h3>
+<ul>
+<li>
+F# mobile developers want to use your libraris!
+<ul>
+<li>Incompatibilty error :(</li>
+</ul>
+</li>
+<li>APIs on mobile are different to Desktop :(</li>
+<li>
+PCLs were meant to solve this
+<ul>
+<li>only allow code with the intersection of APIs</li>
+</ul>
+</li>
+<li>Getting the right profile is hard</li>
+<li>Some magic when the APIs don't line up (it's possible though)</li>
+</ul>
+</section>
+<section >
+<h3>F# and libraries</h3>
+<h4>How you can help spread F# to mobile</h4>
+<ul>
+<li>Consider mobile, use a PCL</li>
+<li>
+PCL: Target a mobile profile
+<ul>
+<li>profile 259 (generally the most sensible)</li>
+</ul>
+</li>
+<li>
+.netstandard is the new future
+<ul>
+<li>.netstand 2.0 is coming</li>
+<li>will solve all out problems!</li>
+</ul>
+</li>
+<li>
+If only a few APIs don't fit ask the mobile community
+<ul>
+<li><code>Bait and switch</code> might be able to solve this</li>
+</ul>
+</li>
+</ul>
+</section>
+<section >
+<h3>Over to libraries</h3>
+<ul>
+<li><a href="https://blogs.msdn.microsoft.com/dotnet/2016/09/26/introducing-net-standard/">https://blogs.msdn.microsoft.com/dotnet/2016/09/26/introducing-net-standard/</a></li>
+<li>use PCLs now to target mobile specifically</li>
+<li>use .netstandard (1.0 - 1.6) if building a library that might be useful for mobile</li>
+<li>
+use .net-standard 2.0 when it comes out
+<ul>
+<li>.netstandard includes Xamarin APIs</li>
+</ul>
+</li>
+</ul>
+</section>
+<section >
+<h3>Wrapping up</h3>
+<ul>
+<li>Mobile is challenging</li>
+<li>
+Xamarin Forms + F# + MVVM
+<ul>
+<li>stable</li>
+<li>enterprise ready</li>
+<li>Well understood archetecture</li>
+</ul>
+</li>
+<li>
+Xamarin Forms + F# + Gjallarhorn
+<ul>
+<li>The future!</li>
+<li>Controlled state</li>
+<li>More declarative</li>
+</ul>
+</li>
+<li>
+If writing an F# library
+<ul>
+<li>Think about mobile</li>
+<li>use PCL/.netstandard</li>
+</ul>
+</li>
+</ul>
+</section>
+
+
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+        // Add the nohighlight class and data-noescape attribute to code elements that have already been formatted by FSharp.Formatting
+        $('pre.highlighted code').addClass('nohighlight').attr('data-noescape', '');
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: 'lib/js/classList.js', condition: function () { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () { return !!document.body.classList; } },
+                { src: 'plugin/notes/notes.js', async: true, condition: function () { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+</body>
+</html>
+
