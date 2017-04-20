@@ -237,6 +237,9 @@ Company: EROAD - Mobile Developer
         | Increment = (fst model) + 1 :: model
         | Decrement = (fst model) - 1 :: model
 
+    let bindToSource source (model : ISignal<Model>) =
+        Binding.toView source "Current" (fst model)
+
 ***
 ### Time Travel
 #### How it's done
