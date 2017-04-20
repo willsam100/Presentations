@@ -142,6 +142,8 @@ Company: EROAD - Mobile Developer
     - not very declarative/functional
     - not leveraging all of F#'s power
 
+' Facebook - web UI used VMs, they replaced with React
+
 ***
 ### Xamarin with a functional/reactive architecture
 
@@ -157,7 +159,7 @@ Company: EROAD - Mobile Developer
 - A single model to repsent all data/state in the application
 - a function(s) to update the state
 - function to render the state
-- function to handle user action
+- function/type to model user actions
 
 ***
 ### The Elm Architecture
@@ -212,16 +214,47 @@ Company: EROAD - Mobile Developer
 
 - two buttons, increment - decrement
 - output label
-- very sinple model
+- very simple model
 - uses functions to change the state
 - Gjallarhorn handles everything else
+
+***
+### Power Feature
+#### Time Travel
+
+- Extend to support every change in the app
+- Allows for 'time travelling' in the app
+- Undo for free
+- easy to persist
+
+***
+### Time Travel
+#### How it's done
+
+    type Model = int list
+
+    let update msg model = function 
+        | Increment = (fst model) + 1 :: model
+        | Decrement = (fst model) - 1 :: model
+
+***
+### Time Travel
+#### How it's done
+
+- allows the developer to see every change that happend in the life of the app
+- undo = tail model
+- persist the model to save the entire state of the app
+
+***
+### Time Travel
+#### How it's done
 
 ***
 ### Show me a real app!
 #### Estate Watcher
 
 - An app that I have been building
-- I won't go over everything in the code
+- We don't have time to go over everything in the code
 - This is a prototype 
 
 ***
@@ -244,6 +277,8 @@ Company: EROAD - Mobile Developer
 ***
 ### A bigger app: Estate Watcher
 
+Demo Time!  
+
 *** 
 ### App Model
 
@@ -262,7 +297,6 @@ Company: EROAD - Mobile Developer
         CurrentPage: CurrentPage }
 ***
 ### App Commands
-#### Things the user/system can do
 
     type RequestCompleted =
         | FetchItems of FullListing list
@@ -272,9 +306,7 @@ Company: EROAD - Mobile Developer
         | DeletedListing of ListingId
         | DeletedListingFailed of string
 
-    and RequestAction = 
-        | RequstLoad
-        | RequstRefresh
+    and RequestAction = | RequstLoad | RequstRefresh
         | AddListingMessage of string
         | SetListingDetail of (NavigationDetails * ListingId)
         | DeleteListing of ListingId
@@ -383,7 +415,7 @@ To the demo
 - Xamarin Forms + F# + MVVM 
     - stable
     - enterprise ready
-    - Well understood archetecture
+    - Well understood architecture
 - Xamarin Forms + F# + Gjallarhorn
     - The future!
     - Controlled state
