@@ -369,7 +369,7 @@ Let's see it in action!
 ### Building on our unit tests
 
 - add a unit test for completed
-- exted DSL
+- extend the DSL
 - add a single test
 
 ***
@@ -405,8 +405,8 @@ Let's see it in action!
             |> completeTodo
             |> getFirstTodo
 
-        todo.Status |> should be (equal Completed)
-        todo.Action |> should be (equal todo)
+        firstTodo.Status |> should be (equal Completed)
+        firstTodo.Action |> should be (equal todo)
 
 ***
 Domain modelling: Demo time
