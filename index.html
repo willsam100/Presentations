@@ -103,7 +103,7 @@ not to quite your day job and find F#<br/>
 <ul>
 <li>Discovered in 1930s</li>
 <li>Alonzo Church/Alan Turing</li>
-<li>Called the Lamda Calculas</li>
+<li>Called the lambda calculus</li>
 </ul>
 <aside class="notes">
 Alan turning proved lamda calcus was turing complete<br/>
@@ -121,9 +121,9 @@ Alan turning proved lamda calcus was turing complete<br/>
 </ul>
 </section>
 <section >
-<h3>In domain of a Todo App</h3>
+<h3>Using the domain of a To-do App</h3>
 <ul>
-<li>Todo App</li>
+<li>To-do app</li>
 <li>Simple View Model</li>
 <li>Unit tests</li>
 <li>Add a domain model</li>
@@ -145,7 +145,7 @@ Should be similar if desktop GUI<br/>
 <li>NO return keyword</li>
 <li>NO curly braces</li>
 <li>NO new keyword</li>
-<li>NO Constructor</li>
+<li>NO constructor</li>
 </ul>
 <aside class="notes">
 Product adds for Apple <br/>
@@ -183,7 +183,7 @@ Make logical deductions about what is true<br/>
 <h3>Smarter type system</h3>
 <ul>
 <li>Compiler uses logic to work out the types</li>
-<li>Techinal name: Type inference</li>
+<li>Technical name: Type inference</li>
 </ul>
 </section>
 <section >
@@ -219,7 +219,7 @@ Make logical deductions about what is true<br/>
 <h3>Syntax in Action</h3>
 <ul>
 <li>Let's see it in action!</li>
-<li>Todo app</li>
+<li>To-do app</li>
 <li>Simple View Model</li>
 </ul>
 <aside class="notes">
@@ -227,12 +227,11 @@ Go to init, and do the demo with type inference<br/>
 </aside>
 </section>
 <section >
-<h3>Clean unit tests</h3>
+<h3>Unit testing</h3>
 <h4>A Safe way to get started with F#</h4>
 </section>
 <section >
 <h3>Clean unit tests</h3>
-<h4>A Safe way to get started with F#</h4>
 <ul>
 <li>Use type inference</li>
 <li>Move to a functional paradigm</li>
@@ -282,7 +281,7 @@ many options for unit testing with F#<br/>
         <span class="k">let</span> <span class="i">vm</span> <span class="o">=</span> <span class="i">DemoViewModel</span>()
         <span class="i">vm</span><span class="o">.</span><span class="i">Entry</span> <span class="o">&lt;-</span> <span class="s">&quot;my todo&quot;</span>
 
-        <span class="i">vm</span><span class="o">.</span><span class="i">AddTodo</span><span class="o">.</span><span class="i">Execute</span> <span class="k">null</span>
+        <span class="i">vm</span><span class="o">.</span><span class="i">AddTodo</span><span class="o">.</span><span class="i">Execute</span>()
 
         <span class="i">Assert</span><span class="o">.</span><span class="i">Equals</span>(<span class="n">1</span>, <span class="i">vm</span><span class="o">.</span><span class="i">Todos</span><span class="o">.</span><span class="i">Count</span>)
 </code></pre></td>
@@ -348,7 +347,7 @@ So how?
 <span class="l">3: </span>
 <span class="l">4: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Chaining with static methods</span>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Chaining style</span>
 <span class="i">driver</span>
     <span class="o">.</span><span class="i">Navigate</span>()
     <span class="o">.</span><span class="i">GoToUrl</span>(<span class="s">&quot;http://codingwithsam.com&quot;</span>);
@@ -526,7 +525,7 @@ Seq.head = list.First();<br/>
         <span class="i">vm</span>
 
     <span class="k">let</span> <span class="i">addTodo</span> (<span class="i">vm</span><span class="o">:</span> <span class="i">DemoViewModel</span>) <span class="o">=</span> 
-        <span class="i">vm</span><span class="o">.</span><span class="i">AddTodo</span><span class="o">.</span><span class="i">Execute</span> <span class="k">null</span> 
+        <span class="i">vm</span><span class="o">.</span><span class="i">AddTodo</span><span class="o">.</span><span class="i">Execute</span>() 
         <span class="i">vm</span>
 
     <span class="c">// Current unit tests below</span>
@@ -584,9 +583,6 @@ A function can:
 </ul>
 </li>
 </ul>
-<aside class="notes">
-When I was learing Java<br/>
-</aside>
 </section>
 <section >
 <h2>Domain modelling</h2>
@@ -933,7 +929,7 @@ branch five for demo<br/>
 <section >
 <p>Thanks for your time
 <br>
-tweet me for more: F#, slides, demo coe
+tweet me for more: F#, slides, demo code
 <br>
 @willsam100</p>
 </section>
