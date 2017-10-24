@@ -47,20 +47,24 @@
 <body>
     <div class="reveal">
         <div class="tip" id="fs1">Multiple items<br />val string : value:&#39;T -&gt; string<br /><br />Full name: Microsoft.FSharp.Core.Operators.string<br /><br />--------------------<br />type string = System.String<br /><br />Full name: Microsoft.FSharp.Core.string</div>
-<div class="tip" id="fs2">module Seq<br /><br />from Microsoft.FSharp.Collections</div>
-<div class="tip" id="fs3">val head : source:seq&lt;&#39;T&gt; -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Collections.Seq.head</div>
-<div class="tip" id="fs4">val firstTodo : obj<br /><br />Full name: Index.firstTodo</div>
-<div class="tip" id="fs5">type bool = System.Boolean<br /><br />Full name: Microsoft.FSharp.Core.bool</div>
-<div class="tip" id="fs6">val set : elements:seq&lt;&#39;T&gt; -&gt; Set&lt;&#39;T&gt; (requires comparison)<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.set</div>
-<div class="tip" id="fs7">val ignore : value:&#39;T -&gt; unit<br /><br />Full name: Microsoft.FSharp.Core.Operators.ignore</div>
-<div class="tip" id="fs8">val unbox : value:obj -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.Operators.unbox</div>
-<div class="tip" id="fs9">val filter : predicate:(&#39;T -&gt; bool) -&gt; source:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Collections.Seq.filter</div>
-<div class="tip" id="fs10">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; source:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;U&gt;<br /><br />Full name: Microsoft.FSharp.Collections.Seq.map</div>
+<div class="tip" id="fs2">val add : x:int -&gt; y:int -&gt; int<br /><br />Full name: Index.add</div>
+<div class="tip" id="fs3">val x : int</div>
+<div class="tip" id="fs4">val y : int</div>
+<div class="tip" id="fs5">val add3 : (int -&gt; int)<br /><br />Full name: Index.add3</div>
+<div class="tip" id="fs6">module Seq<br /><br />from Microsoft.FSharp.Collections</div>
+<div class="tip" id="fs7">val head : source:seq&lt;&#39;T&gt; -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Collections.Seq.head</div>
+<div class="tip" id="fs8">type bool = System.Boolean<br /><br />Full name: Microsoft.FSharp.Core.bool</div>
+<div class="tip" id="fs9">val set : elements:seq&lt;&#39;T&gt; -&gt; Set&lt;&#39;T&gt; (requires comparison)<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.set</div>
+<div class="tip" id="fs10">val ignore : value:&#39;T -&gt; unit<br /><br />Full name: Microsoft.FSharp.Core.Operators.ignore</div>
+<div class="tip" id="fs11">val unbox : value:obj -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.Operators.unbox</div>
+<div class="tip" id="fs12">val filter : predicate:(&#39;T -&gt; bool) -&gt; source:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Collections.Seq.filter</div>
+<div class="tip" id="fs13">val iter : action:(&#39;T -&gt; unit) -&gt; source:seq&lt;&#39;T&gt; -&gt; unit<br /><br />Full name: Microsoft.FSharp.Collections.Seq.iter</div>
 
         <!-- Any section element inside of this container is displayed as a slide -->
         <div class="slides">
             <section >
-<h3>Learn F# to boost your C#</h3>
+<h3>Intro to F#</h3>
+<h4>Why F# is the best FP Language</h4>
 <p>with Sam Williams</p>
 <p>Twitter: @willsam100</p>
 <p>Blog: <a href="http://codingwithsam.com">http://codingwithsam.com</a></p>
@@ -70,72 +74,35 @@
 <small>all opinions are my own</small>
 </section>
 <section >
-<h3>What will be covered</h3>
-<h4>Why F#</h4>
+<h3>What I'll Cover</h3>
 <ul>
-<li>A bit about F#</li>
-<li>FP with unit test</li>
-<li>Domain modelling is easier</li>
+<li>Who Microsoft is Today</li>
+<li>F# for OOP</li>
+<li>F# for FP</li>
+<li>F# for production</li>
 </ul>
 </section>
 <section >
-<h3>The big Why?</h3>
-<ul>
-<li>Learn a different paradigm (FP)</li>
-<li>F# runs on .NET - tools are familiar</li>
-<li>FUN!!!</li>
-<li>Improve your C# code</li>
-</ul>
-<aside class="notes">
-Learning the new pardigm <br/>
-will venture away from C#<br/>
-return to C# at the end<br/>
-not to quite your day job and find F#<br/>
-</aside>
+<h3>Microsoft</h3>
+<p>Any Developer, Any App, Any Platform</p>
 </section>
 <section >
-<h3>In which decade were these items first sold in?</h3>
-<img src="images/photocopier.jpg" width=350 height=350/>
-<img src="images/deskphone.jpg" width=350 height=350/>
-</section>
-<section >
-<h3>Functional Programming</h3>
+<h3>Microsoft Research</h3>
 <ul>
-<li>Discovered in 1930s</li>
-<li>Alonzo Church/Alan Turing</li>
-<li>Called the lambda calculus</li>
-</ul>
-<aside class="notes">
-Alan turning proved lamda calcus was turing complete<br/>
-</aside>
-</section>
-<section >
-<h3>What is F#</h3>
-<img src="images/microsoftreasearch.jpg" width=300 height=300/>
-<ul>
-<li>Developed by Microsoft Research (Cambridge)</li>
-<li>Open source</li>
-<li>Prefers functional style, supports OOP</li>
-<li>F# run on .NET runtime</li>
-<li>Supported by Microsoft</li>
+<li>Don Syme -&gt; F#</li>
+<li>Simon Peyton Jones -&gt; Haskell</li>
 </ul>
 </section>
 <section >
-<h3>Using the domain of a To-do App</h3>
+<h3>It works everywhere</h3>
 <ul>
-<li>To-do app</li>
-<li>Simple View Model</li>
-<li>Unit tests</li>
-<li>Add a domain model</li>
+<li>Mac/Linux/Windows</li>
+<li>Choice of IDEs</li>
+<li>Interop with C#</li>
 </ul>
-<aside class="notes">
-It's really just a class<br/>
-Controller for service side<br/>
-Should be similar if desktop GUI<br/>
-</aside>
 </section>
 <section >
-<h2>It's cleaner to read</h2>
+<h3>F# - OOP</h3>
 </section>
 <section >
 <h3>It's cleaner to read</h3>
@@ -153,24 +120,22 @@ Product adds for Apple <br/>
 </section>
 <section >
 <h3>Defining a class</h3>
-<h4>Some F# Syntax</h4>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
 <span class="l">5: </span>
+<span class="l">6: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span class="i">Person</span>(<span class="i">firstname</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">string</span>, <span class="i">lastname</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs1', 2)" onmouseover="showTip(event, 'fs1', 2)" class="i">string</span>) <span class="o">=</span> 
-    <span class="k">member</span> <span class="i">this</span><span class="o">.</span><span class="i">Name</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs1', 3)" onmouseover="showTip(event, 'fs1', 3)" class="i">string</span> <span class="o">=</span> <span class="i">firstname</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="i">lastname</span>
+    <span class="k">member</span> <span class="i">this</span><span class="o">.</span><span class="i">Name</span>()<span class="o">:</span><span onmouseout="hideTip(event, 'fs1', 3)" onmouseover="showTip(event, 'fs1', 3)" class="i">string</span> <span class="o">=</span> <span class="i">firstname</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="i">lastname</span>
     
-<span class="c">// Usage</span>
-<span class="i">Person</span>(<span class="s">&quot;Sam&quot;</span>, <span class="s">&quot;Williams&quot;</span>)<span class="o">.</span><span class="i">Name</span> 
+<span class="c">// Usage    </span>
+<span class="i">Person</span>(<span class="s">&quot;Don&quot;</span>, <span class="s">&quot;Syme&quot;</span>)<span class="o">.</span><span class="i">Name</span>()
+<span class="c">// Prints &quot;Don Syme&quot;  </span>
 </code></pre></td>
 </tr>
 </table>
-<aside class="notes">
-run this in REPL and a nice example<br/>
-</aside>
 </section>
 <section >
 <h2>Smarter type system</h2>
@@ -180,15 +145,7 @@ Make logical deductions about what is true<br/>
 </aside>
 </section>
 <section >
-<h3>Smarter type system</h3>
-<ul>
-<li>Compiler uses logic to work out the types</li>
-<li>Technical name: Type inference</li>
-</ul>
-</section>
-<section >
-<h3>Defining a class 2</h3>
-<h4>Type inference</h4>
+<h3>Defining a class</h3>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -200,31 +157,11 @@ Make logical deductions about what is true<br/>
     <span class="k">member</span> <span class="i">this</span><span class="o">.</span><span class="i">Name</span> <span class="o">=</span> <span class="i">firstname</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="i">lastname</span>
     
 <span class="c">// Usage    </span>
-<span class="i">Person</span>(<span class="s">&quot;Sam&quot;</span>, <span class="s">&quot;Williams&quot;</span>)<span class="o">.</span><span class="i">Name</span> 
-<span class="c">// Prints &quot;Sam Williams&quot;    </span>
+<span class="i">Person</span>(<span class="s">&quot;Don&quot;</span>, <span class="s">&quot;Syme&quot;</span>)<span class="o">.</span><span class="i">Name</span> 
+<span class="c">// Prints &quot;Don Syme&quot;    </span>
 </code></pre></td>
 </tr>
 </table>
-</section>
-<section >
-<h3>Smarter type system</h3>
-<h4>In practice</h4>
-<ul>
-<li>Less reading, more intent</li>
-<li>Refactoring is easy</li>
-<li>Compiler is always 'solving' the types</li>
-</ul>
-</section>
-<section >
-<h3>Syntax in Action</h3>
-<ul>
-<li>Let's see it in action!</li>
-<li>To-do app</li>
-<li>Simple View Model</li>
-</ul>
-<aside class="notes">
-Go to init, and do the demo with type inference<br/>
-</aside>
 </section>
 <section >
 <h3>Unit testing</h3>
@@ -276,7 +213,7 @@ many options for unit testing with F#<br/>
 <span class="k">type</span> <span class="i">Tests</span>() <span class="o">=</span> 
 
     [&lt;<span class="i">Test</span>&gt;]
-    <span class="k">member</span> <span class="i">this</span><span class="o">.</span><span class="i">Command_addsEntryToList</span> () <span class="o">=</span>
+    <span class="k">member</span> <span class="i">this</span><span class="o">.</span><span class="i">``Command adds entry to list``</span> () <span class="o">=</span>
 
         <span class="k">let</span> <span class="i">vm</span> <span class="o">=</span> <span class="i">DemoViewModel</span>()
         <span class="i">vm</span><span class="o">.</span><span class="i">Entry</span> <span class="o">&lt;-</span> <span class="s">&quot;my todo&quot;</span>
@@ -287,47 +224,6 @@ many options for unit testing with F#<br/>
 </code></pre></td>
 </tr>
 </table>
-<aside class="notes">
-Braces<br/>
-<- assignment<br/>
-Equals means Equals<br/>
-invoke without parens<br/>
-Argue about the name<br/>
-</aside>
-</section>
-<section >
-<h3>unit tests with F#</h3>
-<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
-<span class="l">2: </span>
-<span class="l">3: </span>
-<span class="l">4: </span>
-<span class="l">5: </span>
-<span class="l">6: </span>
-</pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// .. Test fixture setup</span>
-
-    [&lt;<span class="i">Test</span>&gt;]
-    <span class="i">this</span><span class="o">.</span><span class="i">``Command adds entry to list``</span> () <span class="o">=</span>
-
-        <span class="c">// test implementation</span>
-</code></pre></td>
-</tr>
-</table>
-</section>
-<section >
-<h3>unit testing</h3>
-<h4>Building a simple DSL</h4>
-<ul>
-<li>Want to make the unit tests easy to read</li>
-<li>Easy to refactor</li>
-<li>pragmatic/clean code</li>
-</ul>
-<br/>
-<br/>
-Easier said than done!
-<br/>
-<br/>
-So how?
 </section>
 <section >
 <h3>unit testing</h3>
@@ -337,6 +233,11 @@ So how?
 <li>Defines a language/terms for the specific domain</li>
 <li>Simple DSLs can be expressed in code</li>
 </ul>
+</section>
+<section >
+<h3>unit testing</h3>
+<h4>Without 'enterprise' speak</h4>
+<p>FP is better than OOP</p>
 </section>
 <section >
 <section >
@@ -393,16 +294,6 @@ So how?
 </section>
 </section>
 <section >
-<h3>unit testing</h3>
-<h4>Applying to unit tests</h4>
-<ul>
-<li>Chain functions together</li>
-<li>reads like english</li>
-<li>left to right</li>
-<li>top to bottom</li>
-</ul>
-</section>
-<section >
 <section >
 <h3>unit testing</h3>
 <h4>F# POM</h4>
@@ -449,12 +340,12 @@ So how?
 <span class="l">5: </span>
 <span class="l">6: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="i">add</span> <span class="i">x</span> <span class="i">y</span> <span class="o">=</span> 
-    <span class="i">x</span> <span class="o">+</span> <span class="i">y</span>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs2', 4)" onmouseover="showTip(event, 'fs2', 4)" class="f">add</span> <span onmouseout="hideTip(event, 'fs3', 5)" onmouseover="showTip(event, 'fs3', 5)" class="i">x</span> <span onmouseout="hideTip(event, 'fs4', 6)" onmouseover="showTip(event, 'fs4', 6)" class="i">y</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs3', 7)" onmouseover="showTip(event, 'fs3', 7)" class="i">x</span> <span class="o">+</span> <span onmouseout="hideTip(event, 'fs4', 8)" onmouseover="showTip(event, 'fs4', 8)" class="i">y</span>
 
-<span class="k">let</span> <span class="i">add3</span> <span class="o">=</span> <span class="i">add</span> <span class="n">3</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs5', 9)" onmouseover="showTip(event, 'fs5', 9)" class="f">add3</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs2', 10)" onmouseover="showTip(event, 'fs2', 10)" class="f">add</span> <span class="n">3</span>
 
-<span class="i">add3</span> <span class="n">2</span> <span class="c">// result 5    </span>
+<span onmouseout="hideTip(event, 'fs5', 11)" onmouseover="showTip(event, 'fs5', 11)" class="f">add3</span> <span class="n">2</span> <span class="c">// result 5    </span>
 </code></pre></td>
 </tr>
 </table>
@@ -489,7 +380,7 @@ So how?
         <span class="o">|&gt;</span> <span class="i">setEntry</span> <span class="i">todo</span>
         <span class="o">|&gt;</span> <span class="i">addTodo</span>
 
-    <span class="i">vm</span><span class="o">.</span><span class="i">Todos</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs2', 4)" onmouseover="showTip(event, 'fs2', 4)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 5)" onmouseover="showTip(event, 'fs3', 5)" class="i">head</span> <span class="o">|&gt;</span> <span class="i">should</span> <span class="i">be</span> (<span class="i">equal</span> <span class="i">todo</span>)
+    <span class="i">vm</span><span class="o">.</span><span class="i">Todos</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 12)" onmouseover="showTip(event, 'fs6', 12)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs7', 13)" onmouseover="showTip(event, 'fs7', 13)" class="i">head</span> <span class="o">|&gt;</span> <span class="i">should</span> <span class="i">be</span> (<span class="i">equal</span> <span class="i">todo</span>)
 </code></pre></td>
 </tr>
 </table>
@@ -557,7 +448,7 @@ Seq.head = list.First();<br/>
         
     <span class="k">let</span> <span class="i">todo</span> <span class="o">=</span> <span class="s">&quot;my todo&quot;</span>
 
-    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs4', 6)" onmouseover="showTip(event, 'fs4', 6)" class="i">firstTodo</span> <span class="o">=</span> 
+    <span class="k">let</span> <span class="i">firstTodo</span> <span class="o">=</span> 
         <span class="i">createViewModel</span>() 
         <span class="o">|&gt;</span> <span class="i">setEntry</span> <span class="i">todo</span> 
         <span class="o">|&gt;</span> <span class="i">addTodo</span>
@@ -565,8 +456,8 @@ Seq.head = list.First();<br/>
         <span class="o">|&gt;</span> <span class="i">completeTodo</span>
         <span class="o">|&gt;</span> <span class="i">getFirstTodo</span>
 
-    <span onmouseout="hideTip(event, 'fs4', 7)" onmouseover="showTip(event, 'fs4', 7)" class="i">firstTodo</span><span class="o">.</span><span class="i">Status</span> <span class="o">|&gt;</span> <span class="i">should</span> <span class="i">be</span> (<span class="i">equal</span> <span class="i">Completed</span>)
-    <span onmouseout="hideTip(event, 'fs4', 8)" onmouseover="showTip(event, 'fs4', 8)" class="i">firstTodo</span><span class="o">.</span><span class="i">Action</span> <span class="o">|&gt;</span> <span class="i">should</span> <span class="i">be</span> (<span class="i">equal</span> <span class="i">todo</span>)
+    <span class="i">firstTodo</span><span class="o">.</span><span class="i">Status</span> <span class="o">|&gt;</span> <span class="i">should</span> <span class="i">be</span> (<span class="i">equal</span> <span class="i">Completed</span>)
+    <span class="i">firstTodo</span><span class="o">.</span><span class="i">Action</span> <span class="o">|&gt;</span> <span class="i">should</span> <span class="i">be</span> (<span class="i">equal</span> <span class="i">todo</span>)
 </code></pre></td>
 </tr>
 </table>
@@ -604,8 +495,8 @@ A function can:
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">public</span> <span class="k">class</span> <span class="i">Payment</span> 
 {
     <span class="c">// Only one should be set</span>
-    <span class="k">public</span> <span onmouseout="hideTip(event, 'fs5', 9)" onmouseover="showTip(event, 'fs5', 9)" class="i">bool</span> <span class="i">WasCreditCard</span> <span class="o">=</span> {<span class="i">get</span>; <span onmouseout="hideTip(event, 'fs6', 10)" onmouseover="showTip(event, 'fs6', 10)" class="i">set</span>;}
-    <span class="k">public</span> <span onmouseout="hideTip(event, 'fs5', 11)" onmouseover="showTip(event, 'fs5', 11)" class="i">bool</span> <span class="i">WasCash</span> <span class="o">=</span> {<span class="i">get</span>; <span onmouseout="hideTip(event, 'fs6', 12)" onmouseover="showTip(event, 'fs6', 12)" class="i">set</span>;}
+    <span class="k">public</span> <span onmouseout="hideTip(event, 'fs8', 14)" onmouseover="showTip(event, 'fs8', 14)" class="i">bool</span> <span class="i">WasCreditCard</span> <span class="o">=</span> {<span class="i">get</span>; <span onmouseout="hideTip(event, 'fs9', 15)" onmouseover="showTip(event, 'fs9', 15)" class="i">set</span>;}
+    <span class="k">public</span> <span onmouseout="hideTip(event, 'fs8', 16)" onmouseover="showTip(event, 'fs8', 16)" class="i">bool</span> <span class="i">WasCash</span> <span class="o">=</span> {<span class="i">get</span>; <span onmouseout="hideTip(event, 'fs9', 17)" onmouseover="showTip(event, 'fs9', 17)" class="i">set</span>;}
 }
 
 <span class="c">// Should never happen!</span>
@@ -632,11 +523,19 @@ A function can:
 </table>
 </section>
 <section >
+<h3>Microsoft missed mobile</h3>
+<h4>but</h4>
+<p>F# is supported by Xamarin</p>
+<img src="images/xamarin.png" width=350 height=350/>
+</section>
+<section >
 <h3>Modelling Todo app</h3>
 <ul>
 <li>Demo</li>
-<li>Added completing a todo</li>
-<li>Same behaviour: new domain</li>
+<li>Simple UI</li>
+<li>Native for both iOS &amp; Android</li>
+<li>Lots of shared code</li>
+<li>F# for domain modelling</li>
 </ul>
 </section>
 <section >
@@ -668,7 +567,7 @@ A function can:
 <span class="l">8: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span class="i">TodoItem</span> <span class="o">=</span> {
-    <span class="i">Action</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs1', 13)" onmouseover="showTip(event, 'fs1', 13)" class="i">string</span> 
+    <span class="i">Action</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs1', 18)" onmouseover="showTip(event, 'fs1', 18)" class="i">string</span> 
     <span class="i">Status</span><span class="o">:</span> <span class="i">Status</span>
 } 
 
@@ -699,6 +598,7 @@ A function can:
 <ul>
 <li>equality defined</li>
 <li>immutable</li>
+<li>F# does not have type classes</li>
 </ul>
 </section>
 <section >
@@ -727,7 +627,7 @@ A function can:
 <span class="k">type</span> <span class="i">Status</span> <span class="o">=</span> <span class="i">Completed</span> | <span class="i">Current</span>
 
 <span class="k">type</span> <span class="i">TodoItem</span> <span class="o">=</span> {
-    <span class="i">Action</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs1', 14)" onmouseover="showTip(event, 'fs1', 14)" class="i">string</span> 
+    <span class="i">Action</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs1', 19)" onmouseover="showTip(event, 'fs1', 19)" class="i">string</span> 
     <span class="i">Status</span><span class="o">:</span> <span class="i">Status</span>
 }
 
@@ -769,7 +669,7 @@ helper functions<br/>
 
     <span class="c">// Items are immutable by default, remove and add</span>
     <span class="k">let</span> <span class="i">markTodoAsCompleted</span> <span class="i">x</span> <span class="o">=</span> 
-        <span class="i">collection</span><span class="o">.</span><span class="i">Remove</span> <span class="i">x</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs7', 15)" onmouseover="showTip(event, 'fs7', 15)" class="i">ignore</span> 
+        <span class="i">collection</span><span class="o">.</span><span class="i">Remove</span> <span class="i">x</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs10', 20)" onmouseover="showTip(event, 'fs10', 20)" class="i">ignore</span> 
         <span class="i">x</span> <span class="o">|&gt;</span> <span class="i">completeTodo</span> <span class="o">|&gt;</span> <span class="i">collection</span><span class="o">.</span><span class="i">Add</span>
 
     <span class="k">let</span> <span class="i">addTodo</span> () <span class="o">=</span> 
@@ -779,7 +679,7 @@ helper functions<br/>
 
     <span class="k">member</span> <span class="i">this</span><span class="o">.</span><span class="i">SelectedItem</span> 
         <span class="k">with</span> <span class="i">get</span>() <span class="o">=</span> <span class="k">null</span>
-        <span class="k">and</span> <span onmouseout="hideTip(event, 'fs6', 16)" onmouseover="showTip(event, 'fs6', 16)" class="i">set</span>(<span class="i">value</span>) <span class="o">=</span> <span class="i">markTodoAsCompleted</span> (<span onmouseout="hideTip(event, 'fs8', 17)" onmouseover="showTip(event, 'fs8', 17)" class="i">unbox</span> <span class="i">value</span>)
+        <span class="k">and</span> <span onmouseout="hideTip(event, 'fs9', 21)" onmouseover="showTip(event, 'fs9', 21)" class="i">set</span>(<span class="i">value</span>) <span class="o">=</span> <span class="i">markTodoAsCompleted</span> (<span onmouseout="hideTip(event, 'fs11', 22)" onmouseover="showTip(event, 'fs11', 22)" class="i">unbox</span> <span class="i">value</span>)
 </code></pre></td>
 </tr>
 </table>
@@ -828,7 +728,7 @@ branch five for demo<br/>
 </section>
 <section >
 <h3>Domain modelling</h3>
-<h4>Updat the app</h4>
+<h4>Update the app</h4>
 <ul>
 <li>Only show completed for a day</li>
 <li>use pattern matching</li>
@@ -863,75 +763,99 @@ branch five for demo<br/>
         | <span class="i">Completed</span> <span class="i">d</span> <span class="k">-&gt;</span> <span class="i">d</span> <span class="o">&lt;</span> <span class="i">DateTime</span><span class="o">.</span><span class="i">Now</span><span class="o">.</span><span class="i">AddDays</span> <span class="o">-</span><span class="n">1.</span>
         | <span class="i">Current</span> <span class="k">-&gt;</span> <span class="k">false</span>
 
-    <span class="k">let</span> <span class="i">oldTodos</span> <span class="o">=</span> <span class="i">collection</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs2', 18)" onmouseover="showTip(event, 'fs2', 18)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs9', 19)" onmouseover="showTip(event, 'fs9', 19)" class="i">filter</span> (<span class="i">isOld</span>)
-    <span class="i">oldTodos</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs2', 20)" onmouseover="showTip(event, 'fs2', 20)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs10', 21)" onmouseover="showTip(event, 'fs10', 21)" class="i">map</span> (<span class="i">collection</span><span class="o">.</span><span class="i">Remove</span>) <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs7', 22)" onmouseover="showTip(event, 'fs7', 22)" class="i">ignore</span>
+    <span class="k">let</span> <span class="i">oldTodos</span> <span class="o">=</span> <span class="i">collection</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 23)" onmouseover="showTip(event, 'fs6', 23)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 24)" onmouseover="showTip(event, 'fs12', 24)" class="i">filter</span> (<span class="i">isOld</span>)
+    <span class="i">oldTodos</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 25)" onmouseover="showTip(event, 'fs6', 25)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 26)" onmouseover="showTip(event, 'fs13', 26)" class="i">iter</span> (<span class="i">collection</span><span class="o">.</span><span class="i">Remove</span> <span class="o">&gt;</span><span class="o">&gt;</span> <span onmouseout="hideTip(event, 'fs10', 27)" onmouseover="showTip(event, 'fs10', 27)" class="i">ignore</span>)
 </code></pre></td>
 </tr>
 </table>
 </section>
 <section >
-<h3>Considering C#</h3>
+<h3>F# In Production</h3>
+<h4>My App</h4>
+<img src="images/hosuehawk.png" width=300 height=350/>
+</section>
+<section >
+<h3>F# In Production</h3>
+<h4>My App</h4>
 <ul>
-<li>user <code>var</code></li>
-<li>easy case of type inference</li>
+<li>House Hawk</li>
+<li>No mutable collections</li>
+<li>No mutable variables</li>
+<li>Assignment only used to update UI controls</li>
 </ul>
 </section>
 <section >
-<h3>Considering C#</h3>
+<h3>F# In Production</h3>
+<h4>An IDE</h4>
+<img src="images/continuous_app.png" width=500 height=500/>
+</section>
+<section >
+<h3>F# In Production</h3>
+<h4>An IDE</h4>
 <ul>
-<li><code>Func</code> is the type for functions</li>
-<li><code>Func</code> allows code to be used as data</li>
+<li>Called 'Continous'</li>
+<li>IDE availbe on iPad</li>
+<li>C#/F# Apps</li>
 </ul>
 </section>
 <section >
-<h3>Considering C#</h3>
+<h3>F# In Production</h3>
+<h4>An E-Commerce Site</h4>
+<img src="images/jet.png" width=500 height=500/>
+</section>
+<section >
+<h3>F# In Production</h3>
+<h4>An E-Commerce Site</h4>
 <ul>
-<li>use LINQ</li>
-<li>treating code as data</li>
-<li>create pipelines</li>
+<li>Jet.com</li>
+<li>Competing with Amazon</li>
+<li>F# with microservices</li>
+<li>Runs on Azure</li>
+<li>Purchased by Wallmart for $3 billion</li>
 </ul>
 </section>
 <section >
-<h3>Considering C#</h3>
-<h4>C# 7</h4>
-<ul>
-<li>local functions</li>
-<li>pattern matching</li>
-</ul>
-</section>
-<section >
-<h3>Considering C#</h3>
-<h4>When writing code</h4>
-<ul>
-<li>Avoid writing <code>void</code> methods</li>
-<li>Prefer immutable objects</li>
-</ul>
-</section>
-<section >
-<h3>Considering C#</h3>
-<h4>Use F# to test your C#</h4>
-<ul>
-<li>Easy to get going</li>
-<li>Avoid boilerplate code</li>
-<li>Encourages an immutable C# API</li>
-</ul>
+<h3>Learning FP</h3>
+<p><a href="http://FSharpForFunAndProfit.com
+http://blog.ploeh.dk/
+http://fsharp.org">http://FSharpForFunAndProfit.com
+http://blog.ploeh.dk/
+http://fsharp.org</a></p>
 </section>
 <section >
 <h3>Wrapping up</h3>
 <h4>F# is...</h4>
 <ul>
-<li>OOP is just one style</li>
-<li>FP is a suitable alternative</li>
-<li>Have fun learning F#</li>
-<li>C# has some FP</li>
+<li>Micosoft isn't evil</li>
+<li>F# is great for OOP or FP</li>
+<li>F# is for production</li>
+<li>F# is for mobile</li>
+<li>Learning F# is fun</li>
 </ul>
 </section>
+<section >
 <section >
 <p>Thanks for your time
 <br>
 tweet me for more: F#, slides, demo code
 <br>
 @willsam100</p>
+</section>
+<section >
+<h3>In which decade were these items first sold in?</h3>
+<img src="images/photocopier.jpg" width=350 height=350/>
+<img src="images/deskphone.jpg" width=350 height=350/>
+</section>
+<section >
+<h3>Functional Programming</h3>
+<ul>
+<li>Discovered in 1930s</li>
+<li>Alonzo Church/Alan Turing</li>
+<li>Called the lambda calculus</li>
+</ul>
+<aside class="notes">
+Alan turning proved lamda calcus was turing complete<br/>
+</section>
 </section>
 
 
